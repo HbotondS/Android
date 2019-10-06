@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Labor1</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="register">Register</string>
+    <string name="profile">Profile</string>
+    <string name="firstName">First name</string>
+    <string name="lastName">Last name</string>
+    <string name="department">Department</string>
+    <string name="registerCall">Number of calls form Register page:</string>
+    <string name="profileCall">Number of calls form Profile page:</string>
+    <string name="signInCall">Number of calls form Sign in page:</string>
+    <string name="back">Back</string>
+</resources>
