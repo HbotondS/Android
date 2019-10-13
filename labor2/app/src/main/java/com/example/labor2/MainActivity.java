@@ -1,10 +1,13 @@
 package com.example.labor2;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,5 +35,15 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         ((TextView) this.findViewById(R.id.birthDayText)).setText(year + ". " + month + ". " + dayOfMonth + ".");
+    }
+
+    public void login(View view) {
+        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        sharedPreferences.edit()
+                .putString(getString(R.string.name), ((EditText) findViewById(R.id.nameText)).getText().toString())
+                .putString(getString(R.string.email), ((EditText) findViewById(R.id.emailText)).getText().toString())
+                .putString(getString(R.string.password), ((EditText) findViewById(R.id.passwordText)).getText().toString())
+                .putString(getString(R.string.birthDate), ((TextView) findViewById(R.id.birthDayText)).getText().toString())
+                .apply();
     }
 }
