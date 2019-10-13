@@ -2,6 +2,7 @@ package com.example.labor2;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.os.Bundle;
@@ -38,12 +39,15 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     public void login(View view) {
-        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("userdata", Context.MODE_PRIVATE);
         sharedPreferences.edit()
                 .putString(getString(R.string.name), ((EditText) findViewById(R.id.nameText)).getText().toString())
                 .putString(getString(R.string.email), ((EditText) findViewById(R.id.emailText)).getText().toString())
                 .putString(getString(R.string.password), ((EditText) findViewById(R.id.passwordText)).getText().toString())
                 .putString(getString(R.string.birthDate), ((TextView) findViewById(R.id.birthDayText)).getText().toString())
                 .apply();
+
+        Intent hobbys = new Intent(this, NewHobby.class);
+        startActivity(hobbys);
     }
 }
