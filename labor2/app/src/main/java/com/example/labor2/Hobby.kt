@@ -2,14 +2,9 @@ package com.example.labor2
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "hobbys",
-        foreignKeys = arrayOf(ForeignKey(entity = Student::class,
-                parentColumns = arrayOf("id"),
-                childColumns = arrayOf("student_id"),
-                onDelete = ForeignKey.CASCADE)))
+@Entity(tableName = "hobbys")
 data class Hobby(
         @PrimaryKey(autoGenerate = true)
         val id: Int,

@@ -1,7 +1,9 @@
 package com.example.labor2
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 
 class NewHobby : AppCompatActivity() {
@@ -12,5 +14,10 @@ class NewHobby : AppCompatActivity() {
 
         val sharedPref = getSharedPreferences("userdata", Context.MODE_PRIVATE)
         val name = sharedPref.getString(getString(R.string.name), null)
+    }
+
+    fun viewHobbies(view: View) {
+        val intent = Intent(this, HobbiesActivity::class.java)
+        startActivity(intent)
     }
 }
