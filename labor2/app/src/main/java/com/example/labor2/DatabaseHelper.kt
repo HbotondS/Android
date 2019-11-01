@@ -53,14 +53,17 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, "School", nul
         return true
     }
 
-    fun getHobbies(): List<String> {
+    fun getHobbies(): ArrayList<String> {
+        Log.d(TAG, "Get hobbies")
+
         val hobbies = ArrayList<String>()
         val db = readableDatabase
         val cursor = db.rawQuery("SELECT hobby FROM hobbies;", null)
         while (cursor.moveToNext()) {
             hobbies.add(cursor.getString(0))
-            cursor.close()
+            Log.d(TAG, "hobby: " + cursor.getString(0))
         }
+        cursor.close()
 
         return hobbies
     }

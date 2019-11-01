@@ -32,6 +32,7 @@ class NewHobby : AppCompatActivity() {
             hobbyText.error = "Field is empty"
         } else {
             databaseHelper.addHobby(hobbyText.text.toString())
+            viewHobbies(view)
         }
     }
 }
