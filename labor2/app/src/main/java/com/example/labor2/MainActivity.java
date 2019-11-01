@@ -16,6 +16,11 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private DatePickerDialog datePickerDialog;
+    private DatabaseHelper databaseHelper;
+    private EditText nameText;
+    private EditText emailText;
+    private EditText passwordText;
+    private TextView birthDayText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,13 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
         datePickerDialog = new DatePickerDialog(this, this, year, month, day);
+
+        databaseHelper = new DatabaseHelper(this);
+
+        nameText = findViewById(R.id.nameText);
+        emailText = findViewById(R.id.emailText);
+        passwordText = findViewById(R.id.passwordText);
+        birthDayText = findViewById(R.id.birthDayText);
     }
 
     public void datePick(View view) {
@@ -35,17 +47,22 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        ((TextView) this.findViewById(R.id.birthDayText)).setText(year + ". " + month + ". " + dayOfMonth + ".");
+        birthDayText.setText(year + ". " + month + ". " + dayOfMonth + ".");
     }
 
     public void login(View view) {
         SharedPreferences sharedPreferences = getSharedPreferences("userdata", Context.MODE_PRIVATE);
         sharedPreferences.edit()
-                .putString(getString(R.string.name), ((EditText) findViewById(R.id.nameText)).getText().toString())
-                .putString(getString(R.string.email), ((EditText) findViewById(R.id.emailText)).getText().toString())
-                .putString(getString(R.string.password), ((EditText) findViewById(R.id.passwordText)).getText().toString())
-                .putString(getString(R.string.birthDate), ((TextView) findViewById(R.id.birthDayText)).getText().toString())
+                .putString(getString(R.string.name), nameText.getText().toString())
+                .putString(getString(R.string.email), emailText.getText().toString())
+                .putString(getString(R.string.password), passwordText.getText().toString())
+                .putString(getString(R.string.birthDate), birthDayText.getText().toString())
                 .apply();
+
+        databaseHelper.addStudent(nameText.getText().toString(),
+                emailText.getText().toString(),
+                passwordText.getText().toString(),
+                birthDayText.getText().toString());
 
         Intent hobbys = new Intent(this, NewHobby.class);
         startActivity(hobbys);

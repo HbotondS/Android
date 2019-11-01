@@ -30,7 +30,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, "School", nul
         val db = writableDatabase
         val contentValues = ContentValues()
         contentValues.put("name", name)
-        contentValues.put("emial", email)
+        contentValues.put("email", email)
         contentValues.put("password", password)
         contentValues.put("birth_date", birthDate)
 

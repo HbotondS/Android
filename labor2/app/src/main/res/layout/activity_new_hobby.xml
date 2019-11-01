@@ -16,7 +16,7 @@
         app:layout_constraintTop_toBottomOf="@id/guidelineTop" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/hobbyText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="130dp"
@@ -31,9 +31,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
+        android:onClick="addHobby"
         android:text="@string/add_hobby"
         app:layout_constraintLeft_toLeftOf="@+id/guidelineToLift"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/hobbyText"
         tools:layout_editor_absoluteX="95dp" />
 
     <Button
@@ -44,7 +45,7 @@
         android:onClick="viewHobbies"
         android:text="@string/view_hobby"
         app:layout_constraintRight_toRightOf="@id/guidelineToRight"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/hobbyText"
         tools:layout_editor_absoluteX="202dp" />
 
     <androidx.constraintlayout.widget.Guideline
