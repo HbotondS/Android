@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">labor2</string>
+    <string name="login">Login</string>
+    <string name="name">Name</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="datePick">Pick a date</string>
+    <string name="birthDate">Birth date</string>
+    <string name="remember">Remember me</string>
+    <string name="log_in">Log in</string>
+    <string name="new_hobby_title">Add a new Hobby</string>
+    <string name="new_hobby">Your new Hobby</string>
+    <string name="add_hobby">Add Hobby</string>
+    <string name="view_hobby">Your Hobbies</string>
+</resources>
