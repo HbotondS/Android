@@ -35,4 +35,46 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, "School", nul
 
         return true
     }
+
+    fun getFirstNames(): ArrayList<String> {
+        Log.d(TAG, "get first names")
+
+        val fnames = ArrayList<String>()
+        val db = readableDatabase
+        val cursor =  db.rawQuery("SELECT fname FROM student;", null)
+        while (cursor.moveToNext()) {
+            fnames.add(cursor.getString(0))
+        }
+        cursor.close()
+
+        return fnames
+    }
+
+    fun getLastNames(): ArrayList<String> {
+        Log.d(TAG, "get first names")
+
+        val lnames = ArrayList<String>()
+        val db = readableDatabase
+        val cursor =  db.rawQuery("SELECT lname FROM student;", null)
+        while (cursor.moveToNext()) {
+            lnames.add(cursor.getString(0))
+        }
+        cursor.close()
+
+        return lnames
+    }
+
+    fun getCourses(): ArrayList<String> {
+        Log.d(TAG, "get first names")
+
+        val courses = ArrayList<String>()
+        val db = readableDatabase
+        val cursor =  db.rawQuery("SELECT course FROM student;", null)
+        while (cursor.moveToNext()) {
+            courses.add(cursor.getString(0))
+        }
+        cursor.close()
+
+        return courses
+    }
 }

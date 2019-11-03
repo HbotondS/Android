@@ -7,42 +7,42 @@
     tools:context=".NewStudentActivity">
 
     <TextView
-        style="@style/title"
-        android:layout_margin="@dimen/fab_margin"
         android:id="@+id/textView"
+        style="@style/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
         android:text="@string/newStudent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        style="@style/editTextSyle"
         android:id="@+id/fnameTxt"
+        style="@style/editTextSyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="First name"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
-        style="@style/editTextSyle"
         android:id="@+id/lnameTxt"
+        style="@style/editTextSyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Last name"
         android:ems="10"
+        android:hint="Last name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fnameTxt" />
 
     <EditText
-        style="@style/editTextSyle"
         android:id="@+id/courseTxt"
+        style="@style/editTextSyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -54,14 +54,15 @@
 
     <Button
         android:id="@+id/addBtn"
-        android:backgroundTint="@color/colorPrimary"
-        android:textColor="#fff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:layout_marginStart="40dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:onClick="addStudent"
         android:text="Add"
+        android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/courseTxt" />
