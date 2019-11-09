@@ -9,8 +9,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        val fragment = ListFragment()
-        fragmentTransaction.add(R.id.layoutHolder, fragment).commit()
+        supportFragmentManager.beginTransaction().add(R.id.layoutHolder, ListFragment()).commit()
     }
 }

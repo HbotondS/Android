@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="locations">
+        <item>Cluj Napoca</item>
+        <item>Targu Mures</item>
+        <item>Brasov</item>
+    </string-array>
+</resources>

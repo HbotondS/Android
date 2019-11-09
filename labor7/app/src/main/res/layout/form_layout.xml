@@ -9,8 +9,9 @@
         android:id="@+id/nameTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding"
-        android:layout_marginEnd="@dimen/padding"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_marginEnd="@dimen/margin"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
@@ -22,9 +23,10 @@
         android:id="@+id/locationSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding"
+        android:layout_marginStart="@dimen/margin"
         android:layout_marginTop="@dimen/marginTop"
-        android:layout_marginEnd="@dimen/padding"
+        android:layout_marginEnd="@dimen/margin"
+        android:entries="@array/locations"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameTxt" />
 
@@ -32,8 +34,9 @@
         android:id="@+id/profilePic"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="@dimen/padding"
+        android:layout_marginStart="@dimen/margin"
         android:layout_marginTop="@dimen/marginTop"
+        android:background="@drawable/imageview_outline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/locationSpinner" />
 
@@ -42,72 +45,125 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/marginTop"
-        android:layout_marginEnd="@dimen/padding"
+        android:layout_marginEnd="@dimen/margin"
         android:text="Choose a profile picture"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/locationSpinner" />
 
-    <TextView
-        android:id="@+id/dateTxt"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dateHolder"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding"
-        android:layout_marginTop="@dimen/marginTop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profilePic" />
+        android:layout_marginTop="@dimen/margin"
+        app:layout_constraintTop_toBottomOf="@+id/choosePic">
 
-    <Button
-        android:id="@+id/datePickBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/marginTop"
-        android:layout_marginEnd="@dimen/padding"
-        android:text="Pick a date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/choosePic" />
+        <TextView
+            android:id="@+id/dateTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:text="date"
+            app:layout_constraintBottom_toBottomOf="@+id/datePickBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/datePickBtn" />
 
-    <RadioGroup
-        android:id="@+id/genderRadio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/hobbyCheckBox"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateTxt" />
+        <Button
+            android:id="@+id/datePickBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin"
+            android:text="Pick a date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
-        android:id="@+id/hobbyCheckBox"
-        android:layout_width="wrap_content"
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/marginTop"
-        android:layout_marginEnd="@dimen/padding"
-        android:text="Hobbies"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datePickBtn" />
+        android:layout_marginTop="@dimen/margin"
+        app:layout_constraintTop_toBottomOf="@id/dateHolder">
+
+        <RadioGroup
+            android:id="@+id/genderRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/margin"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <RadioButton
+                android:id="@+id/radio_male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/male" />
+
+            <RadioButton
+                android:id="@+id/radio_female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/female" />
+        </RadioGroup>
+
+        <CheckBox
+            android:id="@+id/hobbyCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin"
+            android:text="Hobbies"
+            app:layout_constraintBottom_toBottomOf="@id/genderRadio"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/genderRadio" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <Spinner
         android:id="@+id/departmentSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding"
-        android:layout_marginEnd="@dimen/padding"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginEnd="@dimen/margin"
+        android:entries="@array/departments"
         app:layout_constraintTop_toTopOf="@+id/guideline"
         tools:layout_editor_absoluteX="3dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7" />
 
     <RadioGroup
         android:id="@+id/yearOfStudy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/marginTop"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/departmentSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/departmentSpinner">
+
+        <RadioButton
+            android:id="@+id/thisYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="2019" />
+
+        <RadioButton
+            android:id="@+id/lastYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2018" />
+    </RadioGroup>
 
     <EditText
         android:id="@+id/expectationTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding"
-        android:layout_marginEnd="@dimen/padding"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginEnd="@dimen/margin"
         android:ems="10"
         android:gravity="start|top"
         android:hint="Expectations"
@@ -116,10 +172,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/yearOfStudy" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.7" />
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginEnd="@dimen/margin"
+        android:text="@string/saveBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/expectationTxt" />
 </androidx.constraintlayout.widget.ConstraintLayout>

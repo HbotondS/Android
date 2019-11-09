@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ListFragment : Fragment() {
 
@@ -23,7 +24,13 @@ class ListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         Log.d(TAG, "view created")
-        myView =  inflater.inflate(R.layout.recycleview_layout, container, false)
+        myView = inflater.inflate(R.layout.recycleview_layout, container, false)
+
+        myView.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
+            fragmentManager?.beginTransaction()?.replace(R.id.layoutHolder, FormFragment())
+                ?.addToBackStack(null)
+                ?.commit()
+        }
 
         getData()
         initRecyclerView()

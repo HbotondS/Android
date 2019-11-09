@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="departments">
+        <item>Informatics</item>
+        <item>Computer science</item>
+        <item>Engineering</item>
+    </string-array>
+</resources>
