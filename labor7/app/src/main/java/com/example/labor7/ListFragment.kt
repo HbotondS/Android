@@ -9,14 +9,17 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.database.*
 
 class ListFragment : Fragment() {
 
     private val TAG = "ListFragment"
 
     private lateinit var myView: View
-    private lateinit var names: ArrayList<String>
-    private lateinit var dates: ArrayList<String>
+    private var names: ArrayList<String> = ArrayList()
+    private var dates: ArrayList<String> = ArrayList()
+
+    private lateinit var dataBaseRef: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,20 +35,33 @@ class ListFragment : Fragment() {
                 ?.commit()
         }
 
+        dataBaseRef = FirebaseDatabase.getInstance().reference.child("Student")
+
         getData()
-        initRecyclerView()
 
         return myView
     }
 
     private fun getData() {
-        names = ArrayList()
-        names.add("Boti")
+        dataBaseRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                Log.d(TAG, "Get data")
+                for (messageSnapshot in dataSnapshot.children) {
+                    val value = messageSnapshot.getValue(Student::class.java)
+                    names.add(value?.name!!)
+                    dates.add(value.birthDate)
+                }
 
-        dates = ArrayList()
-        dates.add("2019.11.06")
+                initRecyclerView()
+            }
 
-        // todo: get data from firebase
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException())
+            }
+        })
     }
 
     private fun initRecyclerView() {
