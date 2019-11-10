@@ -1,6 +1,11 @@
 package com.example.labor7
 
+import android.app.Activity
+import android.app.DatePickerDialog
+import android.content.Intent
+import android.graphics.ImageDecoder
 import android.icu.text.SimpleDateFormat
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,11 +18,11 @@ import com.google.firebase.database.FirebaseDatabase
 import java.util.*
 
 
-class FormFragment : Fragment() {
+class FormFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     var TAG = "FormFragment"
 
-    private var arraySpinner = arrayOf("Targu Mures", "Cluj Napoca", "Brasov")
+    private lateinit var datePickerDialog: DatePickerDialog
 
     private lateinit var myView: View
     private lateinit var nameTxt: EditText
@@ -43,7 +48,9 @@ class FormFragment : Fragment() {
 
         myView = inflater.inflate(R.layout.form_layout, container, false)
         getViewElements()
-        addSaveButtonListener()
+        addListeners()
+
+        initDatePicker()
 
         birthDateTxt = myView.findViewById(R.id.dateTxt)
         val currentDate = SimpleDateFormat("yyyy. MM. dd.", Locale.getDefault()).format(Date())
@@ -53,6 +60,20 @@ class FormFragment : Fragment() {
         dataBaseRef = FirebaseDatabase.getInstance().reference.child("Student")
 
         return myView
+    }
+
+    private fun initDatePicker() {
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+        datePickerDialog = DatePickerDialog(context!!, this, year, month, day)
+    }
+
+    private fun addListeners() {
+        addSaveButtonListener()
+        addDatePickBtnListener()
+        addChoosePicListener()
     }
 
     private fun getViewElements() {
@@ -93,4 +114,40 @@ class FormFragment : Fragment() {
                 ?.commit()
         }
     }
+
+    private fun addDatePickBtnListener() {
+        myView.findViewById<Button>(R.id.datePickBtn).setOnClickListener {
+            datePickerDialog.show()
+        }
+    }
+
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        birthDateTxt.text = "$year. $month. $dayOfMonth."
+    }
+
+    private fun addChoosePicListener() {
+        myView.findViewById<Button>(R.id.choosePic).setOnClickListener {
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type = "image/*"
+            if (intent.resolveActivity(context?.packageManager!!) != null) {
+                startActivityForResult(intent, 1)
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null) {
+            val selectedImage = data.data
+            val bitmapImage = ImageDecoder.decodeBitmap(
+                ImageDecoder.createSource(
+                    activity?.contentResolver!!,
+                    selectedImage!!
+                )
+            )
+            profilePic.setImageBitmap(bitmapImage)
+        }
+    }
+
 }
