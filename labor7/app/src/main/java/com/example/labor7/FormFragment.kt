@@ -3,18 +3,22 @@ package com.example.labor7
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.graphics.ImageDecoder
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.MimeTypeMap
 import android.widget.*
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import java.util.*
 
 
@@ -23,6 +27,7 @@ class FormFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     var TAG = "FormFragment"
 
     private lateinit var datePickerDialog: DatePickerDialog
+    private lateinit var selectedImageUri: Uri
 
     private lateinit var myView: View
     private lateinit var nameTxt: EditText
@@ -38,6 +43,7 @@ class FormFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private lateinit var student: Student
 
     private lateinit var dataBaseRef: DatabaseReference
+    private lateinit var storageRef: StorageReference
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,6 +64,7 @@ class FormFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
 
         dataBaseRef = FirebaseDatabase.getInstance().reference.child("Student")
+        storageRef = FirebaseStorage.getInstance().reference
 
         return myView
     }
@@ -92,7 +99,6 @@ class FormFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         student = Student()
         student.name = nameTxt.text.toString()
         student.location = locationTxt.selectedItem.toString()
-        // todo: store picture & upload to firebase
         student.birthDate = birthDateTxt.text.toString()
         student.hobby = hobbies.isChecked
         student.gender =
@@ -108,6 +114,9 @@ class FormFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         myView.findViewById<Button>(R.id.saveBtn).setOnClickListener {
             Toast.makeText(context, "Saving data", Toast.LENGTH_LONG).show()
             getStudent()
+
+            dataBaseRef.push().setValue(student)
+            uploadFile()
 
             fragmentManager?.beginTransaction()?.replace(R.id.layoutHolder, ListFragment())
                 ?.addToBackStack(null)
@@ -139,15 +148,32 @@ class FormFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null) {
-            val selectedImage = data.data
-            val bitmapImage = ImageDecoder.decodeBitmap(
-                ImageDecoder.createSource(
-                    activity?.contentResolver!!,
-                    selectedImage!!
-                )
-            )
-            profilePic.setImageBitmap(bitmapImage)
+            selectedImageUri = data.data!!
+            profilePic.setImageURI(selectedImageUri)
         }
+    }
+
+    private fun getFileExtension(uri: Uri): String {
+        val cr = activity?.contentResolver
+        val mimeTypeMap = MimeTypeMap.getSingleton()
+        return mimeTypeMap.getExtensionFromMimeType(cr?.getType(uri))!!
+    }
+
+    private fun uploadFile() {
+        val ref = storageRef.child(
+            "" + System.currentTimeMillis() + "." + getFileExtension(selectedImageUri)
+        )
+
+
+        ref.putFile(selectedImageUri)
+            .addOnSuccessListener { }
+            .addOnFailureListener {
+                Snackbar.make(
+                    myView,
+                    "Something happened during the file upload, try again later",
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
     }
 
 }

@@ -44,6 +44,8 @@ class ListFragment : Fragment() {
 
         dates = ArrayList()
         dates.add("2019.11.06")
+
+        // todo: get data from firebase
     }
 
     private fun initRecyclerView() {
