@@ -16,8 +16,8 @@ class ListFragment : Fragment() {
     private val TAG = "ListFragment"
 
     private lateinit var myView: View
-    private var names: ArrayList<String> = ArrayList()
-    private var dates: ArrayList<String> = ArrayList()
+    private lateinit var names: ArrayList<String>
+    private lateinit var dates: ArrayList<String>
 
     private lateinit var dataBaseRef: DatabaseReference
 
@@ -37,6 +37,8 @@ class ListFragment : Fragment() {
 
         dataBaseRef = FirebaseDatabase.getInstance().reference.child("Student")
 
+        names = ArrayList()
+        dates = ArrayList()
         getData()
 
         return myView
