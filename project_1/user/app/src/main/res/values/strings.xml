@@ -3,4 +3,7 @@
     <string name="username">Username</string>
     <string name="join">Join</string>
     <string name="session">Session id</string>
+    <string name="planning_poker">Planning poker</string>
+    <string name="user_app">User app</string>
+    <string name="vote">Vote</string>
 </resources>

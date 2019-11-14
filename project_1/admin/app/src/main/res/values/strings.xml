@@ -3,4 +3,6 @@
     <string name="login">Login</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="planning_poker">Planning poker</string>
+    <string name="admin_app">Admin app</string>
 </resources>
