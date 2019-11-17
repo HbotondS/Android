@@ -5,4 +5,11 @@
     <string name="password">Password</string>
     <string name="planning_poker">Planning poker</string>
     <string name="admin_app">Admin app</string>
+    <string name="questions">Questions</string>
+    <string name="newQuestion">New question</string>
+    <string name="select_session">Select session</string>
+    <string name="question_name">Question name:</string>
+    <string name="timeoutTitle">Timeout:</string>
+    <string name="add">Add</string>
+    <string name="votes">Votes</string>
 </resources>

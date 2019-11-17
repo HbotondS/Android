@@ -39,7 +39,7 @@
         app:layout_constraintGuide_percent="0.3" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/usernameTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -50,7 +50,7 @@
         app:layout_constraintTop_toTopOf="@+id/guidelineForContent" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/passwordTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin"
@@ -59,15 +59,15 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameTxt" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/loginBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin"
         android:text="@string/login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordTxt" />
 </androidx.constraintlayout.widget.ConstraintLayout>
