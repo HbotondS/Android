@@ -6,4 +6,6 @@
     <string name="planning_poker">Planning poker</string>
     <string name="user_app">User app</string>
     <string name="vote">Vote</string>
+    <string name="votes">Votes</string>
+    <string name="question_name">Question name:</string>
 </resources>
