@@ -50,13 +50,12 @@
         app:layout_constraintTop_toTopOf="@+id/guidelineForContent" />
 
     <EditText
-        android:id="@+id/passwordTxt"
+        android:id="@+id/sessionTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin"
         android:ems="10"
-        android:hint="@string/password"
-        android:inputType="textPassword"
+        android:hint="@string/session"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameTxt" />
@@ -69,5 +68,5 @@
         android:text="@string/login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/sessionTxt" />
 </androidx.constraintlayout.widget.ConstraintLayout>

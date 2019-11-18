@@ -12,4 +12,6 @@
     <string name="timeoutTitle">Timeout:</string>
     <string name="add">Add</string>
     <string name="votes">Votes</string>
+    <string name="activate">Activate:</string>
+    <string name="session">Session id</string>
 </resources>
