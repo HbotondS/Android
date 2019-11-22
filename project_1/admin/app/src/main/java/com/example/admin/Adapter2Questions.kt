@@ -20,7 +20,7 @@ class Adapter2Questions : RecyclerView.Adapter<Adapter2Questions.ViewHolder> {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.vote_item_layout, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.question_item_layout, parent, false)
         return ViewHolder(view)
     }
 
