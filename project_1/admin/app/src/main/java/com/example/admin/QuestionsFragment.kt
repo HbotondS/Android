@@ -49,22 +49,16 @@ class QuestionsFragment : Fragment() {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 dataSnapshot.children.forEach { value ->
-                    if (sessionName == value!!.child("sessionName").getValue(String::class.java)) {
-                        Log.d(TAG, "Session name is: $sessionName")
-                        val questions = value.child("questions")
-
+                    if (value.key == sessionName) {
                         names = ArrayList()
-                        questions.children.forEach { question ->
-                            val questionName = question.getValue(String::class.java)
-                            Log.d(TAG, "Question name is: $questionName")
-                            if (questionName != null) {
-                                names.add(questionName)
-                            }
+                        value.child("questions").children.forEach { question ->
+                            names.add(question.getValue(String::class.java).toString())
                         }
+                        Log.d(TAG, "questions: $names")
                     }
                 }
-                myView.findViewById<TextView>(R.id.emptyList).text = if (names.isEmpty()) "No question found." else ""
-
+                myView.findViewById<TextView>(R.id.sessionTitle).text =
+                    if (names.isEmpty()) "No question found." else "Session: $sessionName"
                 initRecyclerView()
             }
 
