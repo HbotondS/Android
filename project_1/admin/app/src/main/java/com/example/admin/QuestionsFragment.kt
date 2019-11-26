@@ -52,7 +52,7 @@ class QuestionsFragment : Fragment() {
                     if (value.key == sessionName) {
                         names = ArrayList()
                         value.child("questions").children.forEach { question ->
-                            names.add(question.getValue(String::class.java).toString())
+                            names.add(question.key.toString())
                         }
                         Log.d(TAG, "questions: $names")
                     }
