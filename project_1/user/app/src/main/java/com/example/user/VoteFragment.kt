@@ -6,8 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +23,10 @@ class VoteFragment : Fragment() {
     private val names = Vector(
         listOf("0", "1", "2", "3", "5", "8", "13", "20", "40", "100", "?", "coffee")
     )
+    private var vote = ""
+    private lateinit var sessionName: String
+    private lateinit var questionName: String
+    private lateinit var userName: String
     private lateinit var myView: View
 
     override fun onCreateView(
@@ -31,7 +35,19 @@ class VoteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         Log.d(TAG, "view created")
+        sessionName = activity?.getSharedPreferences(Utils.MY_PREFS_NAME, Context.MODE_PRIVATE)
+            ?.getString("sessionName", "")!!
+        userName = activity?.getSharedPreferences(Utils.MY_PREFS_NAME, Context.MODE_PRIVATE)
+            ?.getString("user", "")!!
+
         myView = inflater.inflate(R.layout.vote_layout, container, false)
+        myView.findViewById<Button>(R.id.voteBtn).setOnClickListener {
+            if (vote.isNotEmpty()) {
+                FireBaseHelper().voteForQuestion(sessionName, questionName, userName, vote)
+            } else {
+                Utils.makeToast(myView.context, "You didn't vote yet")
+            }
+        }
 
         getData()
 
@@ -39,9 +55,6 @@ class VoteFragment : Fragment() {
     }
 
     private fun getData() {
-        val sessionName = activity?.getSharedPreferences(Utils.MY_PREFS_NAME, Context.MODE_PRIVATE)
-            ?.getString("sessionName", "")
-
         val myRef = FirebaseDatabase.getInstance().getReference("sessions")
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -50,14 +63,16 @@ class VoteFragment : Fragment() {
                 dataSnapshot.children.forEach { value ->
                     if (value.key == sessionName) {
                         value.child("questions").children.forEach { question ->
-                            if (question.getValue(Boolean::class.java)!!) {
+                            if (question.child("isActive").getValue(Boolean::class.java)!!) {
                                 Log.w(TAG, "Active question found.")
-                                myView.findViewById<TextView>(R.id.questionText).text = "Question: ${question.key.toString()}"
+                                questionName = question.key.toString()
+                                myView.findViewById<TextView>(R.id.questionText).text =
+                                    "Question: $questionName"
                             }
                         }
                     }
                 }
-                myView.findViewById<TextView>(R.id.sessionTitle).text =  "Session: $sessionName"
+                myView.findViewById<TextView>(R.id.sessionTitle).text = "Session: $sessionName"
                 initRecyclerView()
             }
 
@@ -72,7 +87,8 @@ class VoteFragment : Fragment() {
         Log.d(TAG, "Init RecyclerView list")
         val recyclerView = myView.findViewById<RecyclerView>(R.id.recyclerViewGrid)
         val adapter = Adapter2Grid(myView.context, names, listener = {
-            Toast.makeText(myView.context, "clicked", Toast.LENGTH_LONG).show()
+            vote = names[it]
+            Utils.makeToast(myView.context, "Your vote: $vote")
         })
         val layoutManager = GridLayoutManager(myView.context, 4)
         recyclerView.setHasFixedSize(true)

@@ -41,4 +41,10 @@ class FireBaseHelper {
     fun checkSession(sessionName: String): Boolean {
         return sessions.containsKey(sessionName)
     }
+
+    fun voteForQuestion(sessionName: String, questionName: String, userName: String, vote: String) {
+        Log.w(TAG, "voteForQuestion $questionName")
+        myRef.child(sessionName).child("questions").child(questionName)
+            .child("users").child(userName).setValue(vote)
+    }
 }

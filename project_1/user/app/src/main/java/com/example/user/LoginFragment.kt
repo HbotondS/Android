@@ -26,6 +26,7 @@ class LoginFragment : Fragment() {
         myView = inflater.inflate(R.layout.join_session_layout, container, false)
         myView.findViewById<Button>(R.id.loginBtn).setOnClickListener {
             val sessionName = myView.findViewById<EditText>(R.id.sessionTxt).text.toString()
+            val userName = myView.findViewById<EditText>(R.id.nameTxt).text.toString()
 
             if (sessionName.isNotEmpty()) {
                 if (!dbHelper.checkSession(sessionName)) {
@@ -36,6 +37,7 @@ class LoginFragment : Fragment() {
                     activity?.getSharedPreferences(Utils.MY_PREFS_NAME, Context.MODE_PRIVATE)
                         ?.edit()
                         ?.putString("sessionName", sessionName)
+                        ?.putString("user", userName)
                         ?.apply()
                     Utils.startFragment(fragmentManager, R.id.layoutHolder, VoteFragment())
                 }

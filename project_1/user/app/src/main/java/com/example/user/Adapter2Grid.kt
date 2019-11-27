@@ -67,9 +67,6 @@ class Adapter2Grid : RecyclerView.Adapter<Adapter2Grid.ViewHolder> {
         }
 
         override fun onClick(v: View) {
-            // must override later
-            Toast.makeText(v.context, "Button clicked", Toast.LENGTH_LONG).show()
-
             listener(adapterPosition)
         }
     }
