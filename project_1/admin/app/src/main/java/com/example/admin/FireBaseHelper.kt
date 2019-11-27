@@ -47,7 +47,7 @@ class FireBaseHelper {
     }
 
     fun createQuestion(sessionName: String, questionName: String) {
-        myRef.child(sessionName).child("questions").child(questionName).setValue(false)
+        myRef.child(sessionName).child("questions").child(questionName).child("isActive").setValue(false)
     }
 
     fun activateQuestion(sessionName: String, questionName: String) {
@@ -55,9 +55,9 @@ class FireBaseHelper {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 dataSnapshot.children.forEach{value ->
                     if (questionName == value.key){
-                        value.ref.setValue(true)
+                        value.ref.child("isActive").setValue(true)
                     } else {
-                        value.ref.setValue(false)
+                        value.ref.child("isActive").setValue(false)
                     }
                 }
             }

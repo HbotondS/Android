@@ -55,7 +55,7 @@ class QuestionsFragment : Fragment() {
                         isActivated = ArrayList()
                         value.child("questions").children.forEach { question ->
                             names.add(question.key.toString())
-                            isActivated.add(question.getValue(Boolean::class.java)!!)
+                            isActivated.add(question.child("isActive").getValue(Boolean::class.java)!!)
                         }
                         Log.d(TAG, "questions: $names")
                     }
