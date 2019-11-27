@@ -9,6 +9,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Utils.startFragment(supportFragmentManager, R.id.layoutHolder, LoginFragment())
+        supportFragmentManager.beginTransaction().add(R.id.layoutHolder, LoginFragment()).commit()
     }
 }
