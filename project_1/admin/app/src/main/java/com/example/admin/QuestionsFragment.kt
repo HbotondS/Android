@@ -21,6 +21,7 @@ class QuestionsFragment : Fragment() {
     private val TAG = "QuestionsFragment"
 
     private var names = ArrayList<String>()
+    private var isActivated = ArrayList<Boolean>()
 
     private lateinit var myView: View
 
@@ -51,8 +52,10 @@ class QuestionsFragment : Fragment() {
                 dataSnapshot.children.forEach { value ->
                     if (value.key == sessionName) {
                         names = ArrayList()
+                        isActivated = ArrayList()
                         value.child("questions").children.forEach { question ->
                             names.add(question.key.toString())
+                            isActivated.add(question.getValue(Boolean::class.java)!!)
                         }
                         Log.d(TAG, "questions: $names")
                     }
@@ -72,7 +75,7 @@ class QuestionsFragment : Fragment() {
     private fun initRecyclerView() {
         Log.d(TAG, "Init RecyclerView list")
         val recyclerView = myView.findViewById<RecyclerView>(R.id.recyclerView)
-        val adapter = Adapter2Questions(myView.context, names)
+        val adapter = Adapter2Questions(myView.context, names, isActivated)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(myView.context)
     }

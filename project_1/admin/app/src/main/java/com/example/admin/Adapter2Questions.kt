@@ -12,10 +12,12 @@ class Adapter2Questions : RecyclerView.Adapter<Adapter2Questions.ViewHolder> {
 
     private var context: Context
     private var names: ArrayList<String>
+    private var isActivated = ArrayList<Boolean>()
 
-    constructor(context: Context, names: ArrayList<String>) : super() {
+    constructor(context: Context, names: ArrayList<String>, isActivated: ArrayList<Boolean>) : super() {
         this.context = context
         this.names = names
+        this.isActivated = isActivated
     }
 
 
@@ -31,6 +33,7 @@ class Adapter2Questions : RecyclerView.Adapter<Adapter2Questions.ViewHolder> {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.name.text = names[position]
+        holder.mySwitch.isChecked = isActivated[position]
         holder.mySwitch.setOnClickListener {
             val sessionName = context.getSharedPreferences(Utils.MY_PREFS_NAME, Context.MODE_PRIVATE)
                 ?.getString("sessionName", "")
