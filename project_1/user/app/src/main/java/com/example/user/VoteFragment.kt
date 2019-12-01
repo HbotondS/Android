@@ -44,6 +44,11 @@ class VoteFragment : Fragment() {
         myView.findViewById<Button>(R.id.voteBtn).setOnClickListener {
             if (vote.isNotEmpty()) {
                 FireBaseHelper().voteForQuestion(sessionName, questionName, userName, vote)
+                activity?.getSharedPreferences(Utils.MY_PREFS_NAME, Context.MODE_PRIVATE)
+                    ?.edit()
+                    ?.putString("questionName", questionName)
+                    ?.apply()
+                Utils.startFragment(fragmentManager, R.id.layoutHolder, VotesFragment())
             } else {
                 Utils.makeToast(myView.context, "You didn't vote yet")
             }
