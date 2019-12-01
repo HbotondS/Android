@@ -13,18 +13,21 @@ class Adapter2Questions : RecyclerView.Adapter<Adapter2Questions.ViewHolder> {
     private var context: Context
     private var names: ArrayList<String>
     private var isActivated = ArrayList<Boolean>()
+    private var listener: (Int) -> Unit
 
-    constructor(context: Context, names: ArrayList<String>, isActivated: ArrayList<Boolean>) : super() {
+    constructor(context: Context, names: ArrayList<String>, isActivated: ArrayList<Boolean>,
+                listener: (Int) -> Unit) : super() {
         this.context = context
         this.names = names
         this.isActivated = isActivated
+        this.listener = listener
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.question_item_layout, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view, listener)
     }
 
     override fun getItemCount(): Int {
@@ -38,7 +41,6 @@ class Adapter2Questions : RecyclerView.Adapter<Adapter2Questions.ViewHolder> {
             val sessionName = context.getSharedPreferences(Utils.MY_PREFS_NAME, Context.MODE_PRIVATE)
                 ?.getString("sessionName", "")
             if (holder.mySwitch.isChecked) {
-                Utils.makeToast(context, "$position activated.")
                 FireBaseHelper().activateQuestion(sessionName!!, names[position])
             }
         }
@@ -48,9 +50,13 @@ class Adapter2Questions : RecyclerView.Adapter<Adapter2Questions.ViewHolder> {
         var name: TextView
         var mySwitch: Switch
 
-        constructor(itemView: View) : super(itemView) {
+        constructor(itemView: View, listener: (Int) -> Unit) : super(itemView) {
             this.name = itemView.findViewById(R.id.questionTitle)
             this.mySwitch = itemView.findViewById(R.id.mySwitch)
+
+            itemView.setOnClickListener {
+                listener(adapterPosition)
+            }
         }
     }
 }

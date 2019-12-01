@@ -74,8 +74,14 @@ class QuestionsFragment : Fragment() {
 
     private fun initRecyclerView() {
         Log.d(TAG, "Init RecyclerView list")
-        val recyclerView = myView.findViewById<RecyclerView>(R.id.recyclerView)
-        val adapter = Adapter2Questions(myView.context, names, isActivated)
+        val recyclerView = myView.findViewById<RecyclerView>(R.id.recyclerViewQuestions)
+        val adapter = Adapter2Questions(myView.context, names, isActivated, listener = {
+            activity?.getSharedPreferences(Utils.MY_PREFS_NAME, Context.MODE_PRIVATE)
+                ?.edit()
+                ?.putString("questionName", names[it])
+                ?.apply()
+            Utils.startFragment(fragmentManager, R.id.layoutHolder, VotesFragment())
+        })
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(myView.context)
     }
