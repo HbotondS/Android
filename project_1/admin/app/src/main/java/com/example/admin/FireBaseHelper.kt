@@ -68,4 +68,11 @@ class FireBaseHelper {
             }
         })
     }
+
+    fun deactivateQuestion(sessionName: String, questionName: String) {
+        myRef.child(sessionName).child("questions")
+            .child(questionName)
+            .child("isActive")
+            .setValue(false)
+    }
 }

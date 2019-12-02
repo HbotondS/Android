@@ -42,6 +42,8 @@ class Adapter2Questions : RecyclerView.Adapter<Adapter2Questions.ViewHolder> {
                 ?.getString("sessionName", "")
             if (holder.mySwitch.isChecked) {
                 FireBaseHelper().activateQuestion(sessionName!!, names[position])
+            } else {
+                FireBaseHelper().deactivateQuestion(sessionName!!, names[position])
             }
         }
     }
