@@ -25,7 +25,7 @@ class VoteFragment : Fragment() {
     )
     private var vote = ""
     private lateinit var sessionName: String
-    private lateinit var questionName: String
+    private var questionName = ""
     private lateinit var userName: String
     private lateinit var myView: View
 
@@ -74,6 +74,10 @@ class VoteFragment : Fragment() {
                                 myView.findViewById<TextView>(R.id.questionText).text =
                                     "Question: $questionName"
                             }
+                        }
+                        if (questionName.isEmpty()) {
+                            Utils.makeToast(myView.context, "There is no active question")
+                            Utils.startFragment(fragmentManager, R.id.layoutHolder, LoginFragment())
                         }
                     }
                 }
