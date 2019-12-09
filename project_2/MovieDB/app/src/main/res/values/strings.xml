@@ -4,4 +4,9 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="in_cinema">In Cinema</string>
+    <string name="favorites">Favorites</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="save_changes">Save changes</string>
 </resources>
