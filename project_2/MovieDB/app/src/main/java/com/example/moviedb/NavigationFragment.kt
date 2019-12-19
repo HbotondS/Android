@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class NavigationFragment : Fragment() {
 
@@ -20,6 +21,25 @@ class NavigationFragment : Fragment() {
     ): View? {
         Log.d(TAG, "view created")
         myView = inflater.inflate(R.layout.navigation_bar, container, false)
+
+        myView.findViewById<BottomNavigationView>(R.id.navigationBar)
+            .setOnNavigationItemSelectedListener {
+                when (it.itemId) {
+                    R.id.inCinema -> {
+                        // todo
+                    }
+                    R.id.favorites -> {
+                        // todo
+                    }
+                    R.id.home -> {
+                        // todo
+                    }
+                    R.id.profile -> {
+                        // todo
+                    }
+                }
+                true
+            }
 
         return myView
     }
