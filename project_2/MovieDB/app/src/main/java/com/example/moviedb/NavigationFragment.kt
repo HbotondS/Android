@@ -22,6 +22,8 @@ class NavigationFragment : Fragment() {
         Log.d(TAG, "view created")
         myView = inflater.inflate(R.layout.navigation_bar, container, false)
 
+        myView.findViewById<BottomNavigationView>(R.id.navigationBar).selectedItemId = R.id.home
+
         myView.findViewById<BottomNavigationView>(R.id.navigationBar)
             .setOnNavigationItemSelectedListener {
                 when (it.itemId) {

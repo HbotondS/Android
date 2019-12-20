@@ -12,7 +12,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.1" />
 
-    <androidx.appcompat.widget.AppCompatImageViewa
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/profilePic"
         android:layout_width="150dp"
         android:layout_height="150dp"
