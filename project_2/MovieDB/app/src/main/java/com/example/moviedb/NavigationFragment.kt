@@ -14,6 +14,13 @@ class NavigationFragment : Fragment() {
 
     private lateinit var myView: View
 
+    private val inCinemaFragment = InCinemaFragment()
+    private val favoritesFragment = FavoritesFragment()
+    private val homeFragment = HomeFragment()
+    private val profileFragment = ProfileFragment()
+
+    private var currentView: ViewType = ViewType.Home
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,22 +35,29 @@ class NavigationFragment : Fragment() {
             .setOnNavigationItemSelectedListener {
                 when (it.itemId) {
                     R.id.inCinema -> {
-                        // todo
+                        changeView(inCinemaFragment)
                     }
                     R.id.favorites -> {
-                        // todo
+                        changeView(favoritesFragment)
                     }
                     R.id.home -> {
-                        // todo
+                        changeView(homeFragment)
                     }
                     R.id.profile -> {
-                        // todo
+                        changeView(profileFragment)
                     }
                 }
                 true
             }
 
         return myView
+    }
+
+    private fun changeView(newView: MyFragment) {
+        if (this.currentView != newView.type) {
+            this.currentView = newView.type
+            Utils.startFragment(fragmentManager, R.id.layoutHolder, newView)
+        }
     }
 
 }

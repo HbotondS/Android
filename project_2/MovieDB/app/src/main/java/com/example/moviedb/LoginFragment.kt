@@ -51,7 +51,7 @@ class LoginFragment : Fragment() {
                     dataSnapshot.children.forEach { value ->
                         if ((value.child("usr").value == "demo") and
                             (value.child("pwd").value == "demo")) {
-                            // todo: create home fragment
+                            Utils.startFragment(fragmentManager, R.id.layoutHolder, HomeFragment())
                             Utils.startFragment(fragmentManager, R.id.navigationBarHolder, NavigationFragment())
                             return
                         }

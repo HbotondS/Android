@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-class ProfileFragment : MyFragment() {
+class FavoritesFragment : MyFragment() {
 
-    private val TAG = "ProfileFragment"
+    private val TAG = "FavoritesFragment"
+
+    override val type = ViewType.Favorites
 
     private lateinit var myView: View
-
-    override val type = ViewType.Profile
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,7 +20,7 @@ class ProfileFragment : MyFragment() {
         savedInstanceState: Bundle?
     ): View? {
         Log.d(TAG, "view created")
-        myView = inflater.inflate(R.layout.profile_layout, container, false)
+        myView = inflater.inflate(R.layout.favorites_layout, container, false)
 
         return myView
     }
