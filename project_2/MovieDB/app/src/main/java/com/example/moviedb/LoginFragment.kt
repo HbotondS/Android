@@ -1,5 +1,7 @@
 package com.example.moviedb
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -44,6 +46,11 @@ class LoginFragment : Fragment() {
                 activity?.findViewById(R.id.layoutHolder)!!,
                 "Fields cannot be empty"
             )
+        } else if(!isOnline(context!!)) {
+            Utils.makeSnackBar(
+                activity?.findViewById(R.id.layoutHolder)!!,
+                "You are offline"
+            )
         } else {
             myRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -69,6 +76,12 @@ class LoginFragment : Fragment() {
                 }
             })
         }
+    }
+
+    private fun isOnline(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
     }
 
 }
