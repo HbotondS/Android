@@ -1,4 +1,4 @@
-package com.example.moviedb
+package com.example.moviedb.inappfragments
 
 enum class ViewType {
     InCinema, Favorites, Home, Profile
