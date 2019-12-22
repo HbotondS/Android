@@ -11,4 +11,9 @@ interface Service {
     fun getPopularMovies(
         @Query("api_key") api_key: String
     ): Call<MovieResponse>
+
+    @GET("movie/now_playing")
+    fun getNowPlayingMovies(
+        @Query("api_key") api_key: String
+    ): Call<MovieResponse>
 }
