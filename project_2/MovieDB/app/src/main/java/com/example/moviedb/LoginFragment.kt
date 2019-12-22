@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import com.example.moviedb.utils.Utils
 import com.example.moviedb.inappfragments.HomeFragment
 import com.google.firebase.database.*
 
@@ -57,8 +58,8 @@ class LoginFragment : Fragment() {
                     // This method is called once with the initial value and again
                     // whenever data at this location is updated.
                     dataSnapshot.children.forEach { value ->
-                        if ((value.child("usr").value == "demo") and
-                            (value.child("pwd").value == "demo")) {
+                        if ((value.child("usr").value == usr) &&
+                            (value.child("pwd").value == pwd)) {
                             Utils.startFragment(fragmentManager, R.id.layoutHolder, HomeFragment())
                             Utils.startFragment(fragmentManager, R.id.navigationBarHolder, NavigationFragment())
                             return

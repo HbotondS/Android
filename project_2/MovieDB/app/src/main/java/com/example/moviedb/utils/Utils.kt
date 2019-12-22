@@ -1,4 +1,4 @@
-package com.example.moviedb
+package com.example.moviedb.utils
 
 import android.content.Context
 import android.view.View
