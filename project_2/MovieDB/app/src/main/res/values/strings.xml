@@ -9,4 +9,6 @@
     <string name="home">Home</string>
     <string name="profile">Profile</string>
     <string name="save_changes">Save changes</string>
+    <string name="sign_up">Sign up</string>
+    <string name="password2">Repeat password</string>
 </resources>

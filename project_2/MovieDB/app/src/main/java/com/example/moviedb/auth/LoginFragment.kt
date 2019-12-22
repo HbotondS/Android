@@ -1,4 +1,4 @@
-package com.example.moviedb
+package com.example.moviedb.auth
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import com.example.moviedb.NavigationFragment
+import com.example.moviedb.R
 import com.example.moviedb.utils.Utils
 import com.example.moviedb.inappfragments.HomeFragment
 import com.google.firebase.database.*
@@ -34,6 +36,9 @@ class LoginFragment : Fragment() {
 
         myView.findViewById<Button>(R.id.loginBtn).setOnClickListener {
             loginBtnListener()
+        }
+        myView.findViewById<Button>(R.id.signUpBtn).setOnClickListener {
+            Utils.startFragment(fragmentManager, R.id.layoutHolder, RegisterFragment())
         }
 
         return myView
@@ -60,8 +65,12 @@ class LoginFragment : Fragment() {
                     dataSnapshot.children.forEach { value ->
                         if ((value.child("usr").value == usr) &&
                             (value.child("pwd").value == pwd)) {
-                            Utils.startFragment(fragmentManager, R.id.layoutHolder, HomeFragment())
-                            Utils.startFragment(fragmentManager, R.id.navigationBarHolder, NavigationFragment())
+                            Utils.startFragment(fragmentManager,
+                                R.id.layoutHolder, HomeFragment())
+                            Utils.startFragment(fragmentManager,
+                                R.id.navigationBarHolder,
+                                NavigationFragment()
+                            )
                             return
                         }
                     }
