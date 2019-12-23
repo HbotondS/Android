@@ -28,28 +28,54 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.3" />
 
-    <EditText
-        android:id="@+id/usernameTxt"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVertStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/username"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guidelineForContent" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
 
-    <EditText
-        android:id="@+id/passwordTxt"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVertEnd"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/usernameLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/guidelineVertEnd"
+        app:layout_constraintStart_toStartOf="@id/guidelineVertStart"
+        app:layout_constraintTop_toTopOf="@+id/guidelineForContent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/usernameTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/username"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/pwdLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin"
-        android:ems="10"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameTxt" />
+        app:layout_constraintEnd_toEndOf="@id/guidelineVertEnd"
+        app:layout_constraintStart_toStartOf="@id/guidelineVertStart"
+        app:layout_constraintTop_toBottomOf="@+id/usernameLayout"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/loginBtn"
@@ -59,7 +85,7 @@
         android:text="@string/login"
         app:layout_constraintEnd_toStartOf="@id/signUpBtn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/pwdLayout" />
 
     <Button
         android:id="@+id/signUpBtn"
@@ -69,6 +95,6 @@
         android:text="@string/sign_up"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/loginBtn"
-        app:layout_constraintTop_toBottomOf="@+id/passwordTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/pwdLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
