@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.snackbar.Snackbar
+import java.math.BigInteger
+import java.security.MessageDigest
 
 class Utils {
 
@@ -25,6 +27,11 @@ class Utils {
 
         fun makeSnackBar(view: View, msg: String) {
             Snackbar.make(view, msg, Snackbar.LENGTH_LONG).show()
+        }
+
+        fun md5(str: String): String {
+            val md = MessageDigest.getInstance("MD5")
+            return BigInteger(1, md.digest(str.toByteArray())).toString(16).padStart(32, '0')
         }
     }
 }

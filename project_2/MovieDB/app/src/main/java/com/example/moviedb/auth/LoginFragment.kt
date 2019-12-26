@@ -75,7 +75,7 @@ class LoginFragment : Fragment() {
                 // whenever data at this location is updated.
                 dataSnapshot.children.forEach { value ->
                     if ((value.child("usr").value == usr) &&
-                        (value.child("pwd").value == pwd)
+                        (value.child("pwd").value == Utils.md5(pwd))
                     ) {
                         Utils.startFragment(
                             fragmentManager,

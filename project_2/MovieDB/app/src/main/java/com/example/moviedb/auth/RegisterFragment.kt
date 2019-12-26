@@ -84,7 +84,7 @@ class RegisterFragment : Fragment() {
                 if (!isExists) {
                     val newUser = Constants.myRef4Users.push()
                     newUser.child("usr").setValue(usernameTxt)
-                    newUser.child("pwd").setValue(passwordTxt)
+                    newUser.child("pwd").setValue(Utils.md5(passwordTxt))
                 }
             }
 
