@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviedb.R
@@ -13,7 +12,10 @@ import com.example.moviedb.models.Movie
 import com.example.moviedb.utils.Constants
 import com.example.moviedb.utils.Utils
 
-class MoviesAdapter(private var context: Context, private var movies: List<Movie>) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
+class MoviesAdapter(
+    private var context: Context,
+    private var movies: List<Movie>
+) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_card, parent, false)
@@ -29,22 +31,36 @@ class MoviesAdapter(private var context: Context, private var movies: List<Movie
 
         Glide.with(context)
             .load(Constants.BASE_IMAGE_URL + movies[position].posterPath)
+            .placeholder(R.drawable.loading)
             .into(holder.poster)
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) :
+        RecyclerView.ViewHolder(itemView) {
         var title: String? = null
-        var poster: ImageView
+        var poster = itemView.findViewById<ImageView>(R.id.moviePic)
+        var addToFavorites = itemView.findViewById<ImageView>(R.id.addToFavorite)
+        private var addedToFavorites = false
 
         init {
-            poster = itemView.findViewById(R.id.moviePic)
-
             itemView.setOnClickListener {
                 val pos = adapterPosition
                 if (pos != RecyclerView.NO_POSITION) {
                     // todo: move to details screen
                     Utils.makeSnackBar(itemView, "$title was clicked.")
                 }
+            }
+
+            addToFavorites.setOnClickListener{
+                // todo: store liked movies
+                if (addedToFavorites) {
+                    addToFavorites.setImageResource(R.drawable.heart)
+                    addedToFavorites = false
+                } else {
+                    addedToFavorites = true
+                    addToFavorites.setImageResource(R.drawable.heart_filled)
+                }
+
             }
         }
     }

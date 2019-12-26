@@ -85,6 +85,7 @@ class RegisterFragment : Fragment() {
                     val newUser = Constants.myRef4Users.push()
                     newUser.child("usr").setValue(usernameTxt)
                     newUser.child("pwd").setValue(Utils.md5(passwordTxt))
+                    Utils.startFragment(fragmentManager, R.id.layoutHolder, LoginFragment())
                 }
             }
 

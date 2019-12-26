@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedb.R
 
 class FavoritesFragment : MyFragment() {
@@ -14,6 +15,7 @@ class FavoritesFragment : MyFragment() {
     override val type = ViewType.Favorites
 
     private lateinit var myView: View
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater,

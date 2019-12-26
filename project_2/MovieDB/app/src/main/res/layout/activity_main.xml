@@ -7,7 +7,7 @@
     <FrameLayout
         android:id="@+id/layoutHolder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/navigationBarHolder"
         app:layout_constraintTop_toTopOf="parent">
 
