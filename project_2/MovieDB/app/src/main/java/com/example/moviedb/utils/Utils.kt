@@ -12,8 +12,6 @@ import java.security.MessageDigest
 class Utils {
 
     companion object {
-        var MY_PREFS_NAME = "MOVIE_DB"
-
         fun makeToast(context: Context, msg: String) {
             Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
         }

@@ -10,9 +10,8 @@ class Constants {
         val API_KEY = BuildConfig.API_KEY
         val LANGUAGE = "en-IN"
 
-        val IMAGE_SIZE = "w500"
-        val IMAGE_URL = "https://image.tmdb.org/t/p/"
-
         val myRef4Users = FirebaseDatabase.getInstance().getReference("users")
+
+        var MY_PREFS_NAME = "MOVIE_DB"
     }
 }

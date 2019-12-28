@@ -45,7 +45,7 @@ class InCinemaFragment : MyFragment() {
         recyclerView = myView.findViewById(R.id.airingMovies)
         recyclerView.layoutManager = GridLayoutManager(myView.context, 3)
         val movies = ArrayList<Movie>()
-        val adapter = MoviesAdapter(context!!, movies)
+        val adapter = MoviesAdapter(context!!, movies, activity)
         recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
 
@@ -58,7 +58,7 @@ class InCinemaFragment : MyFragment() {
         call.enqueue(object : Callback<MovieResponse> {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 val movies = response.body()?.results
-                recyclerView.adapter = MoviesAdapter(myView.context, movies!!)
+                recyclerView.adapter = MoviesAdapter(myView.context, movies!!, activity)
             }
 
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {

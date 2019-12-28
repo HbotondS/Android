@@ -77,6 +77,11 @@ class LoginFragment : Fragment() {
                     if ((value.child("usr").value == usr) &&
                         (value.child("pwd").value == Utils.md5(pwd))
                     ) {
+                        activity?.getSharedPreferences(Constants.MY_PREFS_NAME, Context.MODE_PRIVATE)
+                            ?.edit()
+                            ?.putString("user", usr)
+                            ?.putString("userid", value.key)
+                            ?.apply()
                         Utils.startFragment(
                             fragmentManager,
                             R.id.layoutHolder, HomeFragment()
