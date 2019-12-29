@@ -29,8 +29,7 @@ class MoviesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.title = movies[position].originalTitle
-        holder.id = movies[position].id
+        holder.movie = movies[position]
 
         Glide.with(context)
             .load(Constants.BASE_IMAGE_URL + movies[position].posterPath)
@@ -40,9 +39,7 @@ class MoviesAdapter(
 
     class ViewHolder(itemView: View, private val activity: FragmentActivity?) :
         RecyclerView.ViewHolder(itemView) {
-
-        var title: String? = null
-        var id: Int? = null
+        var movie: Movie? = null
         var poster = itemView.findViewById<ImageView>(R.id.moviePic)
         var addToFavorites = itemView.findViewById<ImageView>(R.id.addToFavorite)
         private var addedToFavorites = false
@@ -52,7 +49,7 @@ class MoviesAdapter(
                 val pos = adapterPosition
                 if (pos != RecyclerView.NO_POSITION) {
                     // todo: move to details screen
-                    Utils.makeSnackBar(itemView, "$title was clicked.")
+                    Utils.makeSnackBar(itemView, "${movie?.title} was clicked.")
                 }
             }
 
@@ -73,7 +70,7 @@ class MoviesAdapter(
         private fun insertIntoFB() {
             val userId = activity?.getSharedPreferences(Constants.MY_PREFS_NAME, Context.MODE_PRIVATE)
                 ?.getString("userid", "")!!
-            Constants.myRef4Users.child(userId).child("favorites").push().child("id").setValue(id)
+            Constants.myRef4Users.child(userId).child("favorites").push().setValue(movie)
         }
     }
 }

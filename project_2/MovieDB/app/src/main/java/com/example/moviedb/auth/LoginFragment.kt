@@ -94,10 +94,7 @@ class LoginFragment : Fragment() {
                         return
                     }
                 }
-                Utils.makeSnackBar(
-                    activity?.findViewById(R.id.layoutHolder)!!,
-                    "Username or password is invalid"
-                )
+                Utils.makeToast(context!!, "Username or password is invalid")
             }
 
             override fun onCancelled(error: DatabaseError) {

@@ -1,9 +1,9 @@
 package com.example.moviedb.api
 
+import com.example.moviedb.models.MovieResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
-import com.example.moviedb.models.MovieResponse
 
 interface Service {
 
