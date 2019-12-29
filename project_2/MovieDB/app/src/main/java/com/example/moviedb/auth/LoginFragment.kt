@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.example.moviedb.NavigationFragment
 import com.example.moviedb.R
@@ -40,32 +41,34 @@ class LoginFragment : Fragment() {
         myView.findViewById<Button>(R.id.signUpBtn).setOnClickListener {
             Utils.startFragment(fragmentManager, R.id.layoutHolder, RegisterFragment())
         }
+        addTextListener(R.id.usernameTxt, R.id.usernameLayout)
+        addTextListener(R.id.passwordTxt, R.id.pwdLayout)
 
         return myView
+    }
+
+    private fun addTextListener(textInput: Int, textInputLayout: Int) {
+        myView.findViewById<TextInputEditText>(textInput).addTextChangedListener {
+            var error = ""
+            if (it.isNullOrBlank()) {
+                error = "Cannot be empty"
+            }
+            myView.findViewById<TextInputLayout>(textInputLayout)
+                ?.error = error
+        }
     }
 
     private fun loginBtnListener() {
         val usr = view?.findViewById<TextInputEditText>(R.id.usernameTxt)?.text.toString()
         val pwd = view?.findViewById<TextInputEditText>(R.id.passwordTxt)?.text.toString()
-        when {
-            usr.isEmpty() -> {
-                view?.findViewById<TextInputLayout>(R.id.usernameLayout)
-                    ?.error = "Username cannot be empty"
-            }
-            pwd.isEmpty() -> {
-                view?.findViewById<TextInputLayout>(R.id.pwdLayout)
-                    ?.error = "Username cannot be empty"
-            }
-            !isOnline(context!!) -> {
+        if (!isOnline(context!!) ) {
                 Utils.makeSnackBar(
                     activity?.findViewById(R.id.layoutHolder)!!,
                     "You are offline"
                 )
-            }
-            else -> {
+            }else if (usr.isNotBlank() && pwd.isNotBlank()) {
                 login(usr, pwd)
             }
-        }
     }
 
     private fun login(usr: String, pwd: String) {

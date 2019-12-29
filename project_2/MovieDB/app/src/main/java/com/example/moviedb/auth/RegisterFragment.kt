@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.example.moviedb.R
 import com.example.moviedb.utils.Constants
@@ -42,31 +43,33 @@ class RegisterFragment : Fragment() {
             registerBtnListener()
         }
 
+        addTextListener(username, R.id.usernameLayout)
+        addTextListener(password, R.id.passwordLayout)
+        addTextListener(password2, R.id.password2Layout)
+
         return myView
+    }
+
+    private fun addTextListener(textInput: TextInputEditText, textInputLayout: Int) {
+        textInput.addTextChangedListener {
+            var error = ""
+            if (it.isNullOrBlank()) {
+                error = "Cannot be empty"
+            }
+            myView.findViewById<TextInputLayout>(textInputLayout)
+                ?.error = error
+        }
     }
 
     private fun registerBtnListener() {
         val usernameTxt = username.text.toString()
         val passwordTxt = password.text.toString()
         val password2Txt = password2.text.toString()
-        when {
-            usernameTxt.isEmpty() -> {
-                myView.findViewById<TextInputLayout>(R.id.usernameLayout).error = "Cannot be empty"
-            }
-            passwordTxt.isEmpty() -> {
-                myView.findViewById<TextInputLayout>(R.id.pwdLayout).error = "Cannot be empty"
-            }
-            password2Txt.isEmpty() -> {
-                myView.findViewById<TextInputLayout>(R.id.pwdLayout2).error = "Cannot be empty"
-            }
-            passwordTxt != password2Txt -> {
-                Utils.makeToast(context!!, "Passwords are not equal")
-            }
-            else -> {
-                register(usernameTxt, passwordTxt)
-            }
+        if (passwordTxt != password2Txt && passwordTxt.isNotBlank() && password2Txt.isNotBlank()) {
+            Utils.makeToast(context!!, "Passwords are not equal")
+        } else {
+            register(usernameTxt, passwordTxt)
         }
-
     }
 
     private fun register(usernameTxt: String, passwordTxt: String) {
