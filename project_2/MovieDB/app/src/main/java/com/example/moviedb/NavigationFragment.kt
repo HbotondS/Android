@@ -55,10 +55,10 @@ class NavigationFragment : Fragment() {
         return myView
     }
 
-    private fun changeView(newView: MyFragment) {
+    private fun changeView(newView: IViewType) {
         if (this.currentView != newView.type) {
             this.currentView = newView.type
-            Utils.startFragment(fragmentManager, R.id.layoutHolder, newView)
+            Utils.startFragment(fragmentManager, R.id.layoutHolder, newView as Fragment)
         }
     }
 

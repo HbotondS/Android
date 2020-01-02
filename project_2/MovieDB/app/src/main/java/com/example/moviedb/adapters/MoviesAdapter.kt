@@ -16,7 +16,8 @@ import com.example.moviedb.utils.Utils
 class MoviesAdapter(
     private var context: Context,
     private var movies: List<Movie>,
-    private var activity: FragmentActivity?
+    private var activity: FragmentActivity?,
+    private var favoriteMovies: List<Movie>
 ) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,6 +31,11 @@ class MoviesAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.movie = movies[position]
+        favoriteMovies.forEach{
+            if (it.id == movies[position].id) {
+                holder.addedToFavorites = true
+            }
+        }
 
         Glide.with(context)
             .load(Constants.BASE_IMAGE_URL + movies[position].posterPath)
@@ -42,7 +48,18 @@ class MoviesAdapter(
         var movie: Movie? = null
         var poster = itemView.findViewById<ImageView>(R.id.moviePic)
         var addToFavorites = itemView.findViewById<ImageView>(R.id.addToFavorite)
-        private var addedToFavorites = false
+
+        var addedToFavorites = false
+            set(value) {
+                if (value) {
+                    addToFavorites.setImageResource(R.drawable.heart_filled)
+                    insertIntoFB()
+                } else {
+                    addToFavorites.setImageResource(R.drawable.heart)
+                    removeFromFb()
+                }
+                field = value
+            }
 
         init {
             itemView.setOnClickListener {
@@ -53,24 +70,19 @@ class MoviesAdapter(
                 }
             }
 
-            addToFavorites.setOnClickListener {
-                if (addedToFavorites) {
-                    addToFavorites.setImageResource(R.drawable.heart)
-                    addedToFavorites = false
-                    // todo: remove from favorites
-                } else {
-                    addedToFavorites = true
-                    addToFavorites.setImageResource(R.drawable.heart_filled)
-                    insertIntoFB()
-                }
-
-            }
+            addToFavorites.setOnClickListener { addedToFavorites = !addedToFavorites }
         }
 
         private fun insertIntoFB() {
             val userId = activity?.getSharedPreferences(Constants.MY_PREFS_NAME, Context.MODE_PRIVATE)
                 ?.getString("userid", "")!!
-            Constants.myRef4Users.child(userId).child("favorites").push().setValue(movie)
+            Constants.myRef4Users.child(userId).child("favorites").child(movie?.id.toString()).setValue(movie)
+        }
+
+        private fun removeFromFb() {
+            val userId = activity?.getSharedPreferences(Constants.MY_PREFS_NAME, Context.MODE_PRIVATE)
+                ?.getString("userid", "")!!
+            Constants.myRef4Users.child(userId).child("favorites").child(movie?.id.toString()).removeValue()
         }
     }
 }

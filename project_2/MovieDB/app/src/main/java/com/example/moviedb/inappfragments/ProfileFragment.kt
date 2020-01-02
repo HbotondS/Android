@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import com.example.moviedb.R
 import com.example.moviedb.utils.Constants
 import com.example.moviedb.utils.Utils
@@ -18,7 +19,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
-class ProfileFragment : MyFragment() {
+class ProfileFragment : Fragment(), IViewType {
 
     private val TAG = "ProfileFragment"
 

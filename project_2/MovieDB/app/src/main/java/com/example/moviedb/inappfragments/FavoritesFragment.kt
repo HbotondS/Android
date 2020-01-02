@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedb.R
 import com.example.moviedb.adapters.MoviesAdapter
 import com.example.moviedb.models.Movie
@@ -16,14 +15,11 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
-class FavoritesFragment : MyFragment() {
+class FavoritesFragment : MovieFragment(), IViewType {
 
     private val TAG = "FavoritesFragment"
 
     override val type = ViewType.Favorites
-
-    private lateinit var myView: View
-    private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,11 +38,16 @@ class FavoritesFragment : MyFragment() {
         Log.d(TAG, "Init RecyclerView list")
         recyclerView = myView.findViewById(R.id.favoriteMovies)
         recyclerView.layoutManager = GridLayoutManager(myView.context, 3)
-        loadFromDB()
+
+        loadFavoriteMovies()
     }
 
-    private fun loadFromDB() {
-        Constants.myRef4Users.addListenerForSingleValueEvent(object : ValueEventListener {
+    override fun loadJSON() {
+        // do nothing
+    }
+
+    private fun loadFavoriteMovies() {
+        Constants.myRef4Users.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
@@ -58,7 +59,7 @@ class FavoritesFragment : MyFragment() {
                         value.child("favorites").children.forEach{
                             movies.add(it.getValue(Movie::class.java)!!)
                         }
-                        recyclerView.adapter = MoviesAdapter(context!!, movies, activity)
+                        recyclerView.adapter = MoviesAdapter(context!!, movies, activity, movies)
                     }
                 }
             }
