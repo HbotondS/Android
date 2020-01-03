@@ -1,5 +1,6 @@
 package com.example.moviedb.api
 
+import com.example.moviedb.models.ImageResponse
 import com.example.moviedb.models.MovieResponse
 import com.example.moviedb.models.VideoResponse
 import retrofit2.Call
@@ -24,4 +25,10 @@ interface Service {
         @Path("movie_id") movie_id: Int,
         @Query("api_key") api_key: String
     ): Call<VideoResponse>
+
+    @GET("movie/{movie_id}/images")
+    fun getImages(
+        @Path("movie_id") movie_id: Int,
+        @Query("api_key") api_key: String
+    ): Call<ImageResponse>
 }
