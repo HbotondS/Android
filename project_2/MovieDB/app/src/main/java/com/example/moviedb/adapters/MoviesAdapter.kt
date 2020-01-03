@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviedb.R
+import com.example.moviedb.inappfragments.DescriptionFragment
 import com.example.moviedb.models.Movie
 import com.example.moviedb.utils.Constants
 import com.example.moviedb.utils.Utils
@@ -65,7 +66,7 @@ class MoviesAdapter(
             itemView.setOnClickListener {
                 val pos = adapterPosition
                 if (pos != RecyclerView.NO_POSITION) {
-                    // todo: move to details screen
+                    Utils.startFragment(activity?.supportFragmentManager, R.id.layoutHolder, DescriptionFragment(movie))
                     Utils.makeSnackBar(itemView, "${movie?.title} was clicked.")
                 }
             }
