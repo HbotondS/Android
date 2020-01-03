@@ -14,4 +14,5 @@
     <string name="new_password">New password</string>
     <string name="current_password">Current password</string>
     <string name="profile_pic">Profile picture:</string>
+    <string name="recommendations">Recommendations</string>
 </resources>

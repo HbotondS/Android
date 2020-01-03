@@ -15,12 +15,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedb.BuildConfig
 import com.example.moviedb.R
 import com.example.moviedb.adapters.ImagesAdapter
+import com.example.moviedb.adapters.RelatedContentAdapter
 import com.example.moviedb.api.Client
 import com.example.moviedb.api.Service
-import com.example.moviedb.models.Image
-import com.example.moviedb.models.ImageResponse
-import com.example.moviedb.models.Movie
-import com.example.moviedb.models.VideoResponse
+import com.example.moviedb.models.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,6 +50,7 @@ class DescriptionFragment(
         val service = Client.getInstance().create(Service::class.java)
         getVideo(service)
         getImages(service)
+        getRecommendation(service)
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -84,7 +83,7 @@ class DescriptionFragment(
             override fun onResponse(call: Call<ImageResponse>, response: Response<ImageResponse>) {
                 val images = response.body()?.backdrops
 
-                initRecyclerView(images!!)
+                initImages(images!!)
             }
 
             override fun onFailure(call: Call<ImageResponse>, t: Throwable) {
@@ -93,12 +92,36 @@ class DescriptionFragment(
         })
     }
 
-    private fun initRecyclerView(images: List<Image>) {
+    private fun initImages(images: List<Image>) {
         val recyclerView = myView.findViewById<RecyclerView>(R.id.images)
         val layoutManager = LinearLayoutManager(context!!)
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         recyclerView.layoutManager = layoutManager
         recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
         recyclerView.adapter = ImagesAdapter(context!!, images)
+    }
+
+    private fun getRecommendation(service: Service) {
+        val call = service.getRecommendation(movie?.id!!, BuildConfig.API_KEY)
+        call.enqueue(object : Callback<MovieResponse> {
+            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
+               val movies = response.body()?.results
+
+                initRecommendation(movies!!)
+            }
+
+            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+                Log.d(TAG, "Error during fetching data.")
+            }
+        })
+    }
+
+    private fun initRecommendation(movies: List<Movie>) {
+        val recyclerView = myView.findViewById<RecyclerView>(R.id.recommendation)
+        val layoutManager = LinearLayoutManager(context!!)
+        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        recyclerView.layoutManager = layoutManager
+        recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
+        recyclerView.adapter = RelatedContentAdapter(context!!, movies, activity)
     }
 }

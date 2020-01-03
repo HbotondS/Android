@@ -31,4 +31,10 @@ interface Service {
         @Path("movie_id") movie_id: Int,
         @Query("api_key") api_key: String
     ): Call<ImageResponse>
+
+    @GET("movie/{movie_id}/recommendations")
+    fun getRecommendation(
+        @Path("movie_id") movie_id: Int,
+        @Query("api_key") api_key: String
+    ): Call<MovieResponse>
 }
